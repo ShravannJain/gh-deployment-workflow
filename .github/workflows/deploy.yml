@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Hugo
+        run: |
+          curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r .assets[0].browser_download_url | xargs curl -LO
+          tar -xvzf hugo_*_Linux-64bit.tar.gz
+          sudo mv hugo /usr/local/bin
+
+      - name: Build Hugo site
+        run: hugo  # Build the Hugo site
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages  # The branch to deploy to
+          folder: public    # The folder where the Hugo build output is stored
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
