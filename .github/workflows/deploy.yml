@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy HTML to GitHub Pages
 
 on:
   push:
@@ -7,25 +7,19 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4  # Fetch the repository code
 
-      - name: Install Hugo
-        run: |
-          curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r .assets[0].browser_download_url | xargs curl -LO
-          tar -xvzf hugo_*_Linux-64bit.tar.gz
-          sudo mv hugo /usr/local/bin
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v4
 
-      - name: Build Hugo site
-        run: hugo  # Build the Hugo site
+      - name: Upload HTML to GitHub Pages
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./  # Upload everything in the root directory
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages  # The branch to deploy to
-          folder: public    # The folder where the Hugo build output is stored
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/deploy-pages@v2
