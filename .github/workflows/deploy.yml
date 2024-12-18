@@ -9,6 +9,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
+  
+    permissions:  # Explicitly set permissions
+      contents: read  # Read repository contents
+      id-token: write  # Enable OIDC for authentication
+
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4  # Fetch the repository code
