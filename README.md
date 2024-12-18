@@ -49,3 +49,5 @@ Deploys the uploaded artifact to GitHub Pages.
   uses: actions/deploy-pages@v2
 ```
 
+project-idea-from: https://roadmap.sh/projects/github-actions-deployment-workflow
+
