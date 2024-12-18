@@ -14,6 +14,9 @@ jobs:
       pages: write    # Permission to deploy to GitHub Pages
       id-token: write  # Enable OIDC for authentication
 
+    environment:
+      name: github-pages  # Define the environment for deployment
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4  # Fetch the repository code
