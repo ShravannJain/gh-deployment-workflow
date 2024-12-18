@@ -9,11 +9,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
-  
     permissions:  # Explicitly set permissions
       contents: read  # Read repository contents
+      pages: write    # Permission to deploy to GitHub Pages
       id-token: write  # Enable OIDC for authentication
-
 
     steps:
       - name: Checkout Code
